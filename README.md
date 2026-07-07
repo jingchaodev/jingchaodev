@@ -35,4 +35,4 @@ Based in Seattle. Currently building always-on autonomous agents and the harness
 ## Reach me
 
 - GitHub: [@jingchaodev](https://github.com/jingchaodev)
-- X: [link on profile]
+- X: [@cifra1902](https://x.com/cifra1902)
