@@ -25,6 +25,10 @@ Based in Seattle. Currently building always-on autonomous agents, the harnesses 
 
 *Together they cover both halves of agent reliability: harness-loop audits what the agent **does** (mechanisms), memory-doctor audits what it **believes** (memory).*
 
+**[agent-workspace](https://github.com/jingchaodev/agent-workspace)** — A local-first handoff protocol so work survives the agent that started it. When a coding agent runs out of context, gets swapped for another model, or hands back to you, the thread usually snaps — the next agent re-derives state from a stale chat summary and quietly redoes or breaks things. agent-workspace makes a `.agent-workspace/` directory (state, tasks, decisions, a runlog, and *verifiable claims*) the source of truth instead, and ships `agentws doctor`, which scores handoff-readiness 0–100 so "the next agent can pick this up" is measured, not hoped. Python stdlib only, zero dependencies. Dogfooded across the repos on this list — while scoring them the doctor flagged its own false-positive, which became the very next commit.
+
+*If harness-loop and memory-doctor are the two halves of one agent's reliability, agent-workspace is the third axis: continuity **across** agents and context resets.*
+
 **[skills-lab](https://github.com/jingchaodev/skills-lab)** — A library of reusable [Agent Skills](https://code.claude.com/docs/en/skills) for Claude Code, plus the authoring principles behind them. Covers research, code/design review, incident response, and an oncall-agent that composes a set of specialist skills into one assistant. As much about *how to write skills an agent will actually invoke correctly* as the skills themselves.
 
 **[.dotfiles](https://github.com/jingchaodev/.dotfiles)** — Tools and settings for a fast agent-driven dev environment.
@@ -34,6 +38,7 @@ Based in Seattle. Currently building always-on autonomous agents, the harnesses 
 - **The compiled prompt is the source of truth.** You can't verify a harness by reading its config — you verify it by inspecting the request that config produces.
 - **Memory you can't audit will quietly go wrong.** Agents accumulate beliefs; without staleness, contradiction, and usage checks, yesterday's fact becomes today's confident mistake.
 - **Structural over remembered.** Sensing and verification should be things the agent *can't forget to do*, not instructions it might skip.
+- **Work should outlive the agent that started it.** Context windows end, models get swapped, sessions reset — continuity has to live in files the next agent reads, not in a chat history it never saw.
 - **Skills are progressive disclosure.** A good skill's `description` earns its place in context; its body is written for a model to act on, not a human to admire.
 - **Judgment belongs to the agent; approval belongs to the human.** Automate the loop, gate anything durable or outgoing.
 
